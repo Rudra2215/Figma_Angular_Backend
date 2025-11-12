@@ -1,0 +1,95 @@
+RUNNING THE PROJECT - Commands (PowerShell)
+
+This file lists the commands to run the frontend and backend, run unit tests, and execute the Newman integration tests. Run these commands in PowerShell (Windows) from the workspace root or the specified folders.
+
+--- Prerequisites ---
+- Node.js (16+) installed and on PATH
+- npm available
+- (Optional) Angular CLI globally if you prefer `ng serve`/`ng test` instead of npm scripts: `npm install -g @angular/cli`
+
+--- Backend (my-figma-backend) ---
+# change to backend folder
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-backend'
+
+# install dependencies (run once)
+npm install
+
+# start in production mode (node)
+npm start
+
+# start in dev mode with nodemon (auto-restart on changes)
+npm run dev
+
+# set environment variables (example) and start (PowerShell):
+$env:JWT_SECRET = 'change-me-locally'; $env:PORT = 4000; npm start
+
+# Run Newman-based integration tests (this script starts server if needed)
+npm run test:newman
+
+# If you want to run Newman manually (not required if test:newman exists)
+# (Newman is installed as a devDependency in package.json)
+npx newman run examples/postman_collection.json -e examples/postman_collection.json --env-var "baseUrl=http://localhost:4000"
+
+--- Frontend (my-figma-app) ---
+# change to frontend folder
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-app'
+
+# install dependencies (run once)
+npm install
+
+# development server (Angular CLI)
+# If you have Angular CLI globally: ng serve --open
+# Otherwise use the npm script if provided (package.json may contain start)
+npm start
+
+# or explicitly with Angular CLI (if installed):
+ng serve --open
+
+# build production bundle
+ng build --configuration production
+# or if package.json has a build script: npm run build
+
+--- Frontend Unit Tests (Jasmine/Karma) ---
+# From frontend folder:
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-app'
+
+# run unit tests (Karma)
+ng test --watch=false
+# or use package.json script (if present): npm test
+
+# If tests fail, open the first failing spec and check TestBed providers and spies.
+
+--- Backend Test Notes ---
+- The backend is a simple Express server that persists to data.json. The Newman collection (examples/postman_collection.json) contains the requests used by the integration tests.
+- The test runner script is at: test/run_newman_tests.js — it will attempt to detect an already-running server on the configured PORT and will spawn index.js only if needed.
+- To change server port or secret for tests:
+$env:PORT = 5000; $env:JWT_SECRET = 'test-secret'; npm run test:newman
+
+--- Troubleshooting ---
+- "EADDRINUSE" (address already in use): another process is using the port (default 4000). Use a different port or stop the running process. Example:
+$env:PORT = 4001; npm start
+
+- Newman errors about invalid URL/IP: make sure the collection uses a raw URL variable `{{baseUrl}}` (the collection included uses that form). The test runner injects the baseUrl automatically.
+
+- If `ng test` fails due to provider issues, check the spec files to ensure mocks/stubs include Observables and methods referenced in templates (for example `user$`, `isAdmin()` on auth spies).
+
+--- Quick run checklist (single-session) ---
+# 1) Start backend
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-backend' ; npm install ; npm start
+
+# 2) Start frontend (in a separate terminal)
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-app' ; npm install ; ng serve --open
+
+# 3) Run frontend unit tests (separate terminal)
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-app' ; ng test --watch=false
+
+# 4) Run backend integration tests (Newman)
+cd 'c:\Users\RUDRA PRANAV\OneDrive\Desktop\New folder\my-figma-backend' ; npm run test:newman
+
+--- Where to look for files ---
+- Backend server: index.js (my-figma-backend/index.js)
+- Newman runner: my-figma-backend/test/run_newman_tests.js
+- Postman collection: my-figma-backend/examples/postman_collection.json
+- Frontend tests: src/app/*.spec.ts inside my-figma-app/src/app/
+
+--- End of commands ---

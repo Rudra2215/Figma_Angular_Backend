@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@example.com",
+      "password": "adminpass",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "email": "user@example.com",
+      "password": "userpass",
+      "role": "user"
+    },
+    {
+      "id": "81f8a379-a5dc-4430-b0c7-8826f7ea2fd6",
+      "email": "bob@example.com",
+      "password": "bobpass",
+      "role": "user"
+    }
+  ],
+  "events": [
+    {
+      "id": "709c5b6e-1e99-4a56-b5dd-6a3ec60c387d",
+      "title": "New Kitchen",
+      "description": "Sleek",
+      "image": "https://example.com/k.jpg"
+    },
+    {
+      "id": "1",
+      "title": "Living Room",
+      "description": "Modern & cozy living room interiors tailored to your lifestyle.",
+      "image": "https://i.pinimg.com/originals/0d/9e/b5/0d9eb53e386f9a2104f9eaab44adc4d6.jpg"
+    },
+    {
+      "id": "2",
+      "title": "Bedroom",
+      "description": "Relaxing bedroom spaces with a balance of comfort and style.",
+      "image": "https://buildhub.in/storage/bedroom-sets/2-bh-modern-bedroom-set-with-bed-3-door-wardrobe-side-table-and-dressing-table-3.jpg"
+    }
+  ]
+}
