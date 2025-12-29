@@ -149,4 +149,4 @@ npm run e2e
 - ChromeHeadless missing: If headless runs fail because Chrome isn't found, install Chrome or run `npm test` (interactive) and let the browser open.
 - localStorage/getItem error during startup: this repo includes guards in `src/app/auth.service.ts` that check for availability before reading/writing localStorage. If you still see the error, restart the dev server after saving changes.
 
-If you'd like, I can add npm scripts for custom tasks (lint-fix, test:ci, serve:ssr) or wire tests to GitHub Actions — tell me which you'd prefer and I will add them.
+
